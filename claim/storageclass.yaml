@@ -1,0 +1,7 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+    name: fast
+provisioner: kubernetes.io/azure-md #This tells kubernetes to use Azure Managed disks when provisioning claims based on this storage class
+parameters:
+    storageaccountType: Premium_LRS #Supported paramters cachingMode (default:ReadWrite), fsType(default:ext4) and storageAccountType (default: Standard_LRS)

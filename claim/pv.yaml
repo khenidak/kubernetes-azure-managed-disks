@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+    name: pv-md-standalone-01
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+    capacity:
+        storage: 128Gi
+    accessModes:
+        - ReadWriteOnce
+    azureManagedDisk:
+        diskName: diskone # this is an pre-existing disk  
+        storageAccountType: Premium_LRS

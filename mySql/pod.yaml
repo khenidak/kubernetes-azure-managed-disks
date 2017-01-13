@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: md-pod-fe-be
+spec:
+    nodeSelector:
+        kubernetes.io/hostname: k8s-agent-30081023-0
+    containers:
+        - 
+            image: 'mysql:5.6.34'
+            name: mysql-db
+            volumeMounts:
+                - 
+                    name: md01
+                    mountPath: /var/lib/mysql
+            env:
+                - 
+                    name: MYSQL_ROOT_PASSWORD
+                    value: abc$123
+            ports:
+                - 
+                    containerPort: 3306
+                    name: mysql
+                    protocol: TCP
+    volumes:
+        - 
+            name: md01
+            azureManagedDisk:
+                diskName: d5
+                storageAccountType: Premium_LRS
+                fsType: ext4
