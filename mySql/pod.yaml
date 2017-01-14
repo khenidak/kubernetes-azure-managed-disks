@@ -4,7 +4,7 @@ metadata:
     name: md-pod-fe-be
 spec:
     nodeSelector:
-        kubernetes.io/hostname: k8s-agent-30081023-0
+        kubernetes.io/hostname: your-node-name
     containers:
         - 
             image: 'mysql:5.6.34'

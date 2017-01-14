@@ -5,7 +5,7 @@ metadata:
 spec:
     nodeSelector:
     #if you are testing Managed Disks then it is a good idea to lock the pod to node.
-        kubernetes.io/hostname: k8s-agent-30081023-0 
+        kubernetes.io/hostname: your-node-name 
     containers:
         - 
             image: busybox
