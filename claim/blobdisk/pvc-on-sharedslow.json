@@ -1,11 +1,11 @@
 {
-    "kind": "PersistentVolumeClaim",
     "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
     "metadata": {
-        "name": "c1",
         "annotations": {
-            "volume.beta.kubernetes.io/storage-class": "fast"
-        }
+            "volume.beta.kubernetes.io/storage-class": "sharedslow"
+        },
+        "name": "pv-dd-shared-slow-01"
     },
     "spec": {
         "accessModes": [

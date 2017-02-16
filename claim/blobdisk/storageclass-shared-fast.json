@@ -1,0 +1,11 @@
+{
+    "apiVersion": "storage.k8s.io/v1beta1",
+    "kind": "StorageClass",
+    "metadata": {
+        "name": "sharedfast"
+    },
+    "parameters": {
+        "skuname": "Premium_LRS"
+    },
+    "provisioner": "kubernetes.io/azure-disk"
+}

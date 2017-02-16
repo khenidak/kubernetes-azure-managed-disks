@@ -1,0 +1,20 @@
+{
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": {
+        "annotations": {
+            "volume.beta.kubernetes.io/storage-class": "managedfast"
+        },
+        "name": "dd-managed-fast-01"
+    },
+    "spec": {
+        "accessModes": [
+            "ReadWriteOnce"
+        ],
+        "resources": {
+            "requests": {
+                "storage": "128Gi"
+            }
+        }
+    }
+}

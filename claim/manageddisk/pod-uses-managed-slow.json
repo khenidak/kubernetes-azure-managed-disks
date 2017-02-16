@@ -1,35 +1,38 @@
 {
-    "kind": "Pod",
     "apiVersion": "v1",
+    "kind": "Pod",
     "metadata": {
-        "name": "azure-managed-disks-claim",
         "labels": {
             "name": "storage"
-        }
+        },
+        "name": "pod-uses-managed-slow"
     },
     "spec": {
         "containers": [
             {
-                "image": "busybox",
-                "name": "az-c-01",
                 "command": [
                     "/bin/sh",
                     "-c",
-                    "while true; do echo $(date) >> /mnt/manageddisk/outfile; sleep 1; done"
+                    "while true; do echo $(date) >> /mnt/managed/outfile; sleep 1; done"
                 ],
+                "image": "busybox",
+                "name": "az-c-01",
                 "volumeMounts": [
                     {
-                        "name": "managedisk01",
-                        "mountPath": "/mnt/manageddisk"
+                        "mountPath": "/mnt/managed",
+                        "name": "managed01"
                     }
                 ]
             }
         ],
+        "nodeSelector": {
+            "disktype": "managed"
+        },
         "volumes": [
             {
-                "name": "managedisk01",
+                "name": "managed01",
                 "persistentVolumeClaim": {
-                    "claimName": "c1"
+                    "claimName": "dd-managed-slow-01"
                 }
             }
         ]
