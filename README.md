@@ -4,6 +4,7 @@ This repo contains samples that works with the new Azure persistent volume plugi
 
 
 ## What does the plugin do? 
+
 1. Provision PVC based on Azure Managed Disks and Blob Disks
 2. Perform consistent attach/detach/mount/unmount and format when needed for disks 
 3. Supports both standard and premium LRS storage accounts. 
@@ -31,6 +32,7 @@ Rsource Group
 ```
 
 The following rules apply:
+
 1. Maximum # of accounts created by K8S for shared PVC is **100**.
 2. Maximum # of disks per account is 60 (VHDs).
 3. K8S will create new account for new disks if * utilization(AccountType(NEWDISK)) > 50%  * keeping total # of accounts below 100.
@@ -44,6 +46,7 @@ When *kind* parameter is set to *dedicated* K8S will create a new dedicated stor
 > You can still use existing VHDs, again the general rule apply use storage accounts that are part of cluster resource group
 
 ### The following storage parameter can be used to control the behaviour
+
 1. *sku* or *storageaccounttype* to choose the underlying Azure storage account (default is *standard_lrs* allowed values are  *standard_lrs* and *premium_lrs*)
 2. *cachingmode* controls Azure caching mode when the disk is attached to a VM (default is *readwrite* allowed values are *none*, *readwrite* and *readonly*
 3. *kind* decides on disk kind (default is *shared* allowed values are *shared*, *dedicated* and *managed*)
@@ -62,9 +65,11 @@ kubectl label nodes {node-name-here} disktype=blob
 
 ## Using the samples
 The sequence of events is generally 
+
 1. Create a storage class
 2. Create a PVC 
 3. Create a pod or a replication controller that uses the PVC
+
 
 > the ./claim/blobdisk and ./claim/manageddisks contains files mapped 1:1 to to the above
 
@@ -87,8 +92,3 @@ kubectl drain {node-name-here}
 kubectl get pod {pod-name-here} -o wide -w
    
 ```
-
-
-
-
-
