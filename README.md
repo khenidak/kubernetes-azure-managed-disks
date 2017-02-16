@@ -1,4 +1,4 @@
-# Azure Persistent Volume Kubernetes Plugin Samples
+# Kubernetes Persistent Volume Plugin For Blob and Managed Disks Samples
 
 This repo contains samples that works with the new Azure persistent volume plugin for Kubernetes. The plugin is expected to be in v1.6 release then will become part of Azure ACS 
 
