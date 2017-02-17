@@ -47,7 +47,7 @@ When *kind* parameter is set to *dedicated* K8S will create a new dedicated stor
 
 ### The following storage parameter can be used to control the behaviour
 
-1. *sku* or *storageaccounttype* to choose the underlying Azure storage account (default is *standard_lrs* allowed values are  *standard_lrs* and *premium_lrs*)
+1. *skuname* or *storageaccounttype* to choose the underlying Azure storage account (default is *standard_lrs* allowed values are  *standard_lrs* and *premium_lrs*)
 2. *cachingmode* controls Azure caching mode when the disk is attached to a VM (default is *readwrite* allowed values are *none*, *readwrite* and *readonly*
 3. *kind* decides on disk kind (default is *shared* allowed values are *shared*, *dedicated* and *managed*)
 4. *fstype* the file system of this disk (default *ext4*)
