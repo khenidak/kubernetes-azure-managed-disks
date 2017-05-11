@@ -1,0 +1,64 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "name": "kv-pod-standalone"
+    },
+    "spec": {
+        "nodeSelector": {
+            "kubernetes.io/hostname": "k8s-magent-30081023-0"
+        },
+        "containers": [
+            {
+                "image": "busybox",
+                "name": "kv-runner",
+                "command": [
+                    "/bin/sh",
+                    "-c",
+                    "while true; do echo $(date) >> /dev/null; sleep 1; done" 
+                ],
+                "volumeMounts": [
+                    {
+                        "name": "kvdisk01",
+                        "mountPath": "/mnt/secret"
+                    },
+                    {
+                        "name": "kvdisk02",
+                        "mountPath": "/mnt/key"
+                    },
+                     {
+                        "name": "kvdisk03",
+                        "mountPath": "/mnt/certificate"
+                    } 
+ 
+                ]
+            }
+        ],
+        "volumes": [
+            {
+                "name": "kvdisk01",
+                "azureKeyVault": {
+                    "vaultName": "kvfork8s",
+                    "objectName": "s0",
+                    "objectKind": "Secret"
+                }
+            },
+            {
+                "name": "kvdisk02",
+                "azureKeyVault": {
+                    "vaultName": "kvfork8s",
+                    "objectName": "k0",
+                    "objectKind": "Key"
+                }
+            },
+             {
+                "name": "kvdisk03",
+                "azureKeyVault": {
+                    "vaultName": "kvfork8s",
+                    "objectName": "contosocert",
+                    "objectKind": "Certificate"
+                }
+            } 
+        ]
+    }
+}

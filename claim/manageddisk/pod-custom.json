@@ -2,19 +2,19 @@
     "kind": "Pod",
     "apiVersion": "v1",
     "metadata": {
-        "name": "pod-uses-shared-slow",
+        "name": "pod-custom-managed",
         "labels": {
             "name": "storage"
         }
     },
     "spec": {
           "nodeSelector" : {
-              "kubernetes.io/hostname" : "k8s-bagent-30081023-0"
-              },     
+		"disktype" : "managed"
+              },
         "containers": [
             {
                "image": "busybox",
-                "name": "az-c-01",
+                "name": "az-0",
                 "command": [
                     "/bin/sh",
                     "-c",
@@ -31,8 +31,10 @@
         "volumes": [
             {
                 "name": "blobdisk01",
-                "persistentVolumeClaim": {
-                    "claimName": "pv-dd-shared-slow-01"
+                "azureDisk": {
+                    "diskURI": "/subscriptions/[sub-id]/resourcegroups/[rg-name/]providers/microsoft.Compute/disks/[disk-name]",
+		    "diskName" : "myDisk",
+		    "kind" : "Managed"
                 }
             }
         ]

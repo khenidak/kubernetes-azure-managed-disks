@@ -1,12 +1,12 @@
 {
-    "apiVersion": "storage.k8s.io/v1beta1",
     "kind": "StorageClass",
+    "apiVersion": "storage.k8s.io/v1beta1",
     "metadata": {
-        "name": "managedslow"
+        "name": "managed"
     },
+    "provisioner": "kubernetes.io/azure-disk",
     "parameters": {
-        "kind": "managed",
-        "storageaccounttype": "standard_lrs"
-    },
-    "provisioner": "kubernetes.io/azure-disk"
+        "storageaccounttype": "standard_lrs",
+        "kind" :"Managed"
+    }
 }

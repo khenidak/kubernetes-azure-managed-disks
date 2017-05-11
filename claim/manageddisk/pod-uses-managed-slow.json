@@ -1,33 +1,33 @@
 {
-    "apiVersion": "v1",
     "kind": "Pod",
+    "apiVersion": "v1",
     "metadata": {
+        "name": "pod-uses-managed-slow",
         "labels": {
             "name": "storage"
-        },
-        "name": "pod-uses-managed-slow"
+        }
     },
     "spec": {
+          "nodeSelector" : {
+              "disktype" : "managed"
+              },     
         "containers": [
             {
+               "image": "busybox",
+                "name": "az-c-01",
                 "command": [
                     "/bin/sh",
                     "-c",
                     "while true; do echo $(date) >> /mnt/managed/outfile; sleep 1; done"
                 ],
-                "image": "busybox",
-                "name": "az-c-01",
                 "volumeMounts": [
                     {
-                        "mountPath": "/mnt/managed",
-                        "name": "managed01"
+                        "name": "managed01",
+                        "mountPath": "/mnt/managed"
                     }
                 ]
             }
         ],
-        "nodeSelector": {
-            "disktype": "managed"
-        },
         "volumes": [
             {
                 "name": "managed01",

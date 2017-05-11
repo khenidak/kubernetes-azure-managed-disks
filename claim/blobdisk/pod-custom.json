@@ -2,7 +2,7 @@
     "kind": "Pod",
     "apiVersion": "v1",
     "metadata": {
-        "name": "pod-uses-shared-slow",
+        "name": "pod-custom",
         "labels": {
             "name": "storage"
         }
@@ -14,7 +14,7 @@
         "containers": [
             {
                "image": "busybox",
-                "name": "az-c-01",
+                "name": "az-0",
                 "command": [
                     "/bin/sh",
                     "-c",
@@ -31,8 +31,10 @@
         "volumes": [
             {
                 "name": "blobdisk01",
-                "persistentVolumeClaim": {
-                    "claimName": "pv-dd-shared-slow-01"
+                "azureDisk": {
+                    "diskURI": "https://[storage account name].blob.core.windows.net/vhd/[vhd page blob name].vhd",
+		    "diskName" : "myDisk",
+		    "kind" : "Dedicated"
                 }
             }
         ]

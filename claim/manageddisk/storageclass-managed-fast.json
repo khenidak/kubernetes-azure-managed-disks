@@ -1,12 +1,12 @@
 {
-    "apiVersion": "storage.k8s.io/v1beta1",
     "kind": "StorageClass",
+    "apiVersion": "storage.k8s.io/v1beta1",
     "metadata": {
         "name": "managedfast"
     },
+    "provisioner": "kubernetes.io/azure-disk",
     "parameters": {
-        "kind": "managed",
-        "storageaccounttype": "Premium_LRS"
-    },
-    "provisioner": "kubernetes.io/azure-disk"
+        "storageaccounttype": "Premium_LRS",
+        "kind" :"managed"
+    }
 }

@@ -7,8 +7,10 @@ This repo contains samples that works with the new Azure persistent volume plugi
 
 1. Provision PVC based on Azure Managed Disks and Blob Disks
 2. Perform consistent attach/detach/mount/unmount and format when needed for disks 
-3. Supports both standard and premium LRS storage accounts. 
+3. Supports both standard and premium LRS storage accounts.
 
+## Samples includes Key Vault plugin samples as well 
+another plugin is on it sway to enable K8s to provision KV objects (secrets, keys, certs) as volumes. 
 ## How does it work? 
 
 ### Managed Disks
