@@ -7,10 +7,7 @@
             "name": "storage"
         }
     },
-    "spec": {
-          "nodeSelector" : {
-              "disktype" : "managed"
-              },     
+    "spec": {    
         "containers": [
             {
                "image": "busybox",
