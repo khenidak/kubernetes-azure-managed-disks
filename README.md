@@ -11,6 +11,59 @@ This repo contains samples that works with the new Azure persistent volume plugi
 
 ## Samples includes Key Vault plugin samples as well 
 another plugin is on it sway to enable K8s to provision KV objects (secrets, keys, certs) as volumes. 
+
+## Get Started
+### Update an existing Kubernetes cluster
+The following steps assume you already have a Kubernetes cluster provisioned using acs-engine. For example using this [commit](https://github.com/Azure/acs-engine/commit/e3409a9a8c47d2abada6036c2837ef2f258b6696), which has been tested.
+
+1. Update `KUBELET_IMAGE=khenidak/hyperkube-amd64:kv1.5` in `/etc/default/kubelet` for all the agent nodes
+2. Run `sudo systemctl daemon-reload && sudo systemctl restart kubelet.service` on all agents
+3. Update `KUBELET_IMAGE=khenidak/hyperkube-amd64:kv1.5` in `/etc/default/kubelet` for master
+4. Run `sudo systemctl daemon-reload && sudo systemctl restart kubelet.service` on master
+5. Update image to `khenidak/hyperkube-amd64:kv1.5` referenced in all yaml files in `/etc/kubernetes/manifests/*`
+
+To verify, on master, run `sudo docker ps` to ensure all the hyperkube containers are using the `khenidak/hyperkube-amd64:kv1.5` image.
+
+### Using the Samples
+The sequence of events is generally 
+
+1. Create a storage class
+2. Create a PVC 
+3. Create a pod or a replication controller that uses the PVC
+
+
+> the ./claim/blobdisk and ./claim/manageddisks contains files mapped 1:1 to to the above
+
+```
+# you can use the following command to provision object
+kubectl create -f {path-to-json-file}
+
+# You can get more details about the created PVC by
+kubectl describe pvc {pvc-name}
+
+### to test pods moving (along with the volume) to different nodes use. This requires RC(won't work with stand alone pods) 
+# 1) get the node which your pod is running on
+
+kubectl get pods -o wide 
+# If you describe the new pod, it should return something like this: Successfully assigned pod-uses-managed-slow to k8s-agent-24013666-2
+
+#2) evict pods out of this node 
+kubectl drain {node-name-here}
+
+#3) watch the pod moving (typically it is a 40 to 50 second process)
+kubectl get pod {pod-name-here} -o wide -w
+   
+```
+
+To verify, inside of the pod/container, you should see something like this:
+
+```
+$ df -h
+/dev/sdc                125.9G     59.6M    119.4G   0% /mnt/managed
+```
+
+
+
 ## How does it work? 
 
 ### Managed Disks
@@ -63,34 +116,4 @@ The samples assumes that you have a cluster with node labeled with #disktype=blo
 To label your nodes use the following command 
 ```
 kubectl label nodes {node-name-here} disktype=blob
-```
-
-## Using the samples
-The sequence of events is generally 
-
-1. Create a storage class
-2. Create a PVC 
-3. Create a pod or a replication controller that uses the PVC
-
-
-> the ./claim/blobdisk and ./claim/manageddisks contains files mapped 1:1 to to the above
-
-```
-# you can use the following command to provision object
-kubectl create -f {path-to-json-file}
-
-# You can get more details about the created PVC by
-kubectl describe pvc {pvc-name}
-
-## to test pods moving (along with the volume) to different nodes use. This requires RC(won't work with stand alone pods) 
-# 1) get the node which your pod is running on 
-
-kubectl get pods -o wide 
-
-#2) evict pods out of this node 
-kubectl drain {node-name-here}
-
-#3) watch the pod moving (typically it is a 40 to 50 second process)
-kubectl get pod {pod-name-here} -o wide -w
-   
 ```
