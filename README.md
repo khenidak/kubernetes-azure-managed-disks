@@ -67,7 +67,7 @@ $ df -h
 ## How does it work? 
 
 ### Managed Disks
-The entire experience is offloaded to Azure to manage disks:storage accounts. You can use PVC (Kubernetes will automatically create a managed disk for you). Or you can you use an existing disk as PV in your PODs/RCs
+The entire experience is offloaded to Azure to manage disks:storage accounts. You can use PVC (Kubernetes will automatically create a managed disk for you). Or you can use an existing disk as PV in your PODs/RCs
 
 > as a general rule, use PV disks provisioned in the same Azure resource group where the cluster is provisioned.   
 
